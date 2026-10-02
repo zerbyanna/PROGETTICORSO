@@ -8,12 +8,11 @@ SELECT * FROM Iscrizioni;
 SELECT * FROM Lezioni;
 SELECT * FROM Studenti;
 SELECT * FROM Voti;
-
-/*DOCENTI CORSI AULE LEZIONI
-LEZIONI <-> AULE<- CORSI
-ISCRIZIONI<-> STUDENTI <- CORSI
-DOCENTICORSI<-> DOCENTI
-
+/*
+Docenti, Corsi, Aule Lezioni
+Lezioni <-> Aule <-Corsi
+Iscrizioni <-> Studenti <- Corsi
+DocentiCorsi <- Docenti
 */
 
 /*
