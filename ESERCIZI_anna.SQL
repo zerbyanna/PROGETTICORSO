@@ -245,3 +245,4 @@ INSERT INTO Iscrizioni
 SELECT * FROM Studenti
 ----------------------------------
 
+--pomeriggio----------
