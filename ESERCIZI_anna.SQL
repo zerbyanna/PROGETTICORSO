@@ -225,4 +225,17 @@ FULL JOIN Voti AS v
     ON V.CorsoId = i.CorsoId
     WHERE V.Voto IS NOT NULL;
 --****************************************************
+--SELECT * FROM Stude
+--SELECT * FROM Studentinti
+--SELECT * FROM Corsi
+INSERT INTO Iscrizioni
+ (StudenteId,CorsoId,Stato)
+ VALUES (44,3,'NON ATTIVO')
 
+ SELECT *
+    FROM Studenti AS S
+    INNER JOIN Iscrizioni AS i
+    ON S.StudenteId=i.StudenteId
+    INNER JOIN Corsi AS c
+    ON C.CorsoId=I.CorsoId
+    WHERE I.StudenteId=44
