@@ -561,3 +561,22 @@ SELECT
     DATEPART(SECOND,OraInizio) AS [SECONDI INIZIO]
 FROM Lezioni
 
+---------------------------------------------------
+/*
+RIGHT JOIN
+FA IL CONTRARIO DELLA LEFTJOIN
+RESTITUISCE TUTTI I RECORD DELLA TABELLA DESTRA
+
+ESEMPIO
+*/
+SELECT 
+    st.Nome + ' ' + st.Cognome AS Studente,
+    st.CodiceFiscale AS CF,
+    ISNULL(CONVERT(VARCHAR,i.DataIscrizione, 105),'Data non definita') AS [Data Iscrizione]
+    FROM Studenti AS st
+    RIGHT JOIN Iscrizioni AS i
+        ON i.StudenteId=st.StudenteId;
+
+-------------------------------------------------------------
+SELECT * FROM Voti
+
