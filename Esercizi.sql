@@ -52,3 +52,91 @@ JOIN Aule a
 WHERE s.DataNascita IS NULL
 GROUP BY s.Nome, s.Cognome, s.DataNascita, s.CodiceFiscale, c.NomeCorso, d.Nome, d.Cognome, a.NomeAula;
 
+-------------------------------ESERZI TUTTI INSIEME
+/*
+Obiettivo 1
+Mostrare gli studenti che hanno preso un voto maggiore o uguale a 28 in qualsiasi corso.
+
+*/
+
+
+SELECT
+    s.StudenteId,
+    CONCAT(s.Nome , ' ' , S.Cognome) AS [Studente NON iscritto],
+    s.Email,
+    s.Telefono    
+    FROM Studenti AS s
+    LEFT JOIN Iscrizioni i 
+        ON s.StudenteId = i.StudenteId
+    LEFT JOIN Corsi AS c
+        ON C.CorsoId=I.CorsoId
+    --WHERE i.IscrizioneId IS NULL
+    WHERE i.StudenteId IS NULL;
+
+    -------OPPURE GIOVANNI
+    SELECT	-- 'Studente senza corso' AS Tipo,
+		CONCAT(s.Nome, ' ', s.Cognome) AS Nome,
+		'CORSO ' + ISNULL(c.NomeCorso, 'N/D') AS Corso		
+        FROM Studenti AS s
+            LEFT JOIN Iscrizioni AS i
+	        ON s.StudenteID = i.StudenteID
+            LEFT JOIN Corso AS c
+	        ON c.CorsoID = i.CorsoID
+            WHERE i.IscrizioneID IS NULL
+            /*
+
+
+
+*/
+/* Esercizi 3
+Mostrare i corsi che non hanno studenti iscritti.
+
+CLEVATTE*/
+SELECT
+    CONCAT(s.Nome, ' ', s.Cognome) AS Nome,
+    ISNULL(c.CorsoId, 0) AS ID,
+    ISNULL(c.NomeCorso, 'Non definito') AS Corso,
+    ISNULL(c.Crediti, 0) AS Crediti,
+    ISNULL(c.Durata,0) As Durata
+FROM Studenti AS s
+LEFT JOIN Iscrizioni AS i
+    ON s.StudenteId = i.StudenteId
+LEFT JOIN Corsi AS c
+    ON c.CorsoId= i.CorsoId
+WHERE i.CorsoId IS NULL;
+/*
+MOUSSA
+*/
+SELECT
+    CONCAT(s.Nome, ' ', s.Cognome) AS Nome,
+    ISNULL(c.CorsoId, 0) AS ID,
+    ISNULL(c.NomeCorso, 'Non definito') AS Corso,
+    ISNULL(c.Crediti, 0) AS Crediti,
+    ISNULL(c.Durata,0) As Durata
+FROM Studenti AS s
+LEFT JOIN Iscrizioni AS i
+    ON s.StudenteId = i.StudenteId
+LEFT JOIN Corsi AS c
+    ON c.CorsoId= i.CorsoId
+WHERE i.CorsoId IS NULL
+ORDER BY S.Nome
+/*
+******************************************************************************************
+Obiettivo 3_2  con Full JOIN 
+Mostrare studenti e voti, anche se non corrispondono
+NOME
+COGNOME
+VOTO
+*/
+
+SELECT 
+    S.Nome,
+    S.Cognome,
+    --ISNULL(CONVERT(VARCHAR(10), s.DataNascita, 120), 'Non registrata') AS Data_di_Nascita
+    --ISNULL(CAST(v.Voto AS INT),'ND') AS [Voto]
+       CAST(ISNULL(v.Voto ,0) AS INT ) AS [Voto]
+FROM Studenti AS s
+FULL OUTER JOIN Voti AS v
+ ON s.StudenteId = v.StudenteId
+ ORDER BY V.Voto DESC
+

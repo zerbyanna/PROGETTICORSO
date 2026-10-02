@@ -580,3 +580,13 @@ SELECT
 -------------------------------------------------------------
 SELECT * FROM Voti
 
+---------------------------------
+--SETSSA COSA DI QUELLO QUI SOPRA CON LEFT AL POSTO DI RIGHT
+SELECT 
+    st.Nome + ' ' + st.Cognome AS Studente,
+    st.CodiceFiscale AS CF,
+    ISNULL(CONVERT(VARCHAR,i.DataIscrizione, 105),'Data non definita') AS [Data Iscrizione]
+    FROM Studenti AS st
+    LEFT JOIN Iscrizioni AS i
+        ON i.StudenteId=st.StudenteId;
+

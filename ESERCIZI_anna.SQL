@@ -93,8 +93,8 @@ SELECT
     JOIN Corsi as c
         on c.CorsoId=i.CorsoId
     JOIN Voti AS v
-       ON v.StudenteId=st.StudenteId
-       AND c.CorsoId=v.CorsoId
+       ON st.StudenteId=v.StudenteId
+            AND c.CorsoId=v.CorsoId
     JOIN DocentiCorso AS dc 
     ON dc.CorsoId=C.CorsoId
     JOIN Docenti AS d
