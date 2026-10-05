@@ -138,11 +138,91 @@ WHERE v.Voto > ( -- La sotto query calcola la media
 --6. SOTTOQUERY con JOIN (super avanzata)
 -- Obiettivo
 -- Mostrare i corsi che hanno una media voti superiore alla media di tutti i corsi.
+-------------------------anna---------------------------------
+SELECT * FROM Voti
+SELECT * FROM Corsi
 
+--PASSO 1 CALCOLO LA MEDIA VOTI
+SELECT
+	AVG(Voto) [La media dei voti] ---> 25.90
+FROM Voti
+
+SELECT --*
+	C.NomeCorso,
+	C.Descrizione,
+	CAST(V.Voto AS INT) AS [VOTO]
+ FROM Corsi AS c
+ JOIN Voti AS v
+ ON V.CorsoId=C.CorsoId
+ WHERE V.Voto>(
+				SELECT
+					AVG(Voto) [La media dei voti] ---> 25.90
+				FROM Voti
+		    	)
 
 --7. SOTTOQUERY per trovare studenti senza data di nascita
 -- Obiettivo
 --Mostrare studenti iscritti a corsi senza data di nascita, usando sottoquery invece dei JOIN.
 
+---PASSO 1 STUDENTI SENZA DATA NASCITA
+SELECT * FROM Studenti
+ WHERE DataNascita IS NULL;
+/*
+SELECT *          -NON VA --> PIù VALORI PER STUDENTI ID
+	FROM Iscrizioni AS i
+	WHERE i.StudenteId=(
+					SELECT StudenteId
+						FROM Studenti AS s
+					WHERE s.DataNascita IS NULL
+					)
+*/
 
+
+/*
+-- 
+/*
+WHERE EXISTS ( -- EXISTS Controlla se la stottoquery trova almeno una riga 
+	SELECT 1
+	FROM Voti v
+	WHERE s.StudenteId = v.StudenteId
+
+	*/
+ESEMPIO
+SELECT 
+	Nome, 
+	Cognome
+FROM Studenti s
+WHERE EXISTS ( -- EXISTS Controlla se la stottoquery trova almeno una riga 
+	SELECT 1
+	FROM Voti v
+	WHERE s.StudenteId = v.StudenteId
+);
+*/
+/* non funziona!!!!!
+
+SELECT *
+	FROM Iscrizioni AS i
+    WHERE EXISTS( 
+		SELECT 1
+			FROM (SELECT StudenteId
+					FROM Studenti AS s
+					WHERE s.DataNascita IS NULL
+				 )
+			WHERE s.StudenteId = i.StudenteId)
+
+*/
+
+SELECT --*
+	s.Nome + ' ' + s.Cognome AS [Studente Iscritto],
+	ISNULL(CONVERT(VARCHAR,s.DataNascita, 105),'NON DEFINITA') AS [Data Nascita],
+	s.Email,
+	s.Telefono,
+	s.CodiceFiscale
+FROM Studenti AS s
+WHERE s.DataNascita IS NULL
+  AND s.StudenteId IN (
+					 SELECT DISTINCT i.StudenteId
+					 FROM Iscrizioni AS i
+					 )
+ORDER BY [Studente Iscritto] ASC;
 
