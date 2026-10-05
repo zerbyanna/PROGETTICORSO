@@ -180,3 +180,51 @@ SELECT
 
 7.SOTTOQUERY PER TROVARE STUDENTI SENZA DATA DI NASCITA
 -MOSTRARE STUDENTI ISCRITTI A CORIS SENZA DATA DI NASCITA ,USANDO SOTTOQUERY
+*/
+
+
+--******ESERCIZI PER IL 05/10/2026
+--6. SOTTOQUERY con JOIN (super avanzata)
+-- Obiettivo
+-- Mostrare i corsi che hanno una media voti superiore alla media di tutti i corsi.
+-------------------------anna---------------------------------
+SELECT * FROM Voti
+SELECT * FROM Corsi
+
+--PASSO 1 CALCOLO LA MEDIA VOTI
+SELECT
+	AVG(Voto) [La media dei voti] ---> 25.90
+FROM Voti
+---QUERY FINALE
+
+SELECT --*
+	C.NomeCorso,
+	C.Descrizione,
+	CAST(V.Voto AS INT) AS [VOTO]
+ FROM Corsi AS c
+ JOIN Voti AS v
+ ON V.CorsoId=C.CorsoId
+ WHERE V.Voto>(
+				SELECT
+					AVG(Voto) [La media dei voti] ---> 25.90
+				FROM Voti
+		    	)
+
+--7. SOTTOQUERY per trovare studenti senza data di nascita
+-- Obiettivo
+--Mostrare studenti iscritti a corsi senza data di nascita, usando sottoquery invece dei JOIN.
+
+
+SELECT --*
+	s.Nome + ' ' + s.Cognome AS [Studente Iscritto],
+	ISNULL(CONVERT(VARCHAR,s.DataNascita, 105),'NON DEFINITA') AS [Data Nascita],
+	s.Email,
+	s.Telefono,
+	s.CodiceFiscale
+FROM Studenti AS s
+WHERE s.DataNascita IS NULL
+  AND s.StudenteId IN (
+					 SELECT DISTINCT i.StudenteId
+					 FROM Iscrizioni AS i
+					 )
+ORDER BY [Studente Iscritto] ASC;
