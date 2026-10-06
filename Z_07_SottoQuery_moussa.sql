@@ -12,7 +12,7 @@
 -- Obiettivo
 --	Trovare gli studenti che hanno preso il voto massimo in tutti i corsi.
 
--- 🔎 passo 1 Trovare il voto massimo in intero
+-- 🔎 passo 1 Trovare il voto massimo convertito in intero
 SELECT CAST(MAX(Voto) AS INT) [Voto Massimo] FROM Voti; -- 30
 
 -- 🔥Query finale sottoquery (SubQuery)

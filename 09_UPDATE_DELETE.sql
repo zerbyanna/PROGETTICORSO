@@ -1,5 +1,26 @@
-/*
-UPDATE è IL COMANDO CHE MODIFICA I DATI GIà ESISTENTI DENTRO UNA TABELLA
-*/
+-- UPDATE è il commando sql che modifica i dati già esistenti dentro una tablla
 SELECT * FROM Studenti
-WHERE Nome
+where StudenteId = 3;
+
+
+
+-- katya
+--⚠️🙅😭😭😭 
+--UPDATE Studenti
+--SET Nome = 'katya'
+
+
+--aggiornamento del nome dello studente con id=3
+UPDATE Studenti
+SET Nome = 'Katia'
+WHERE StudenteId = 3; 
+
+
+
+--aggiornamento dei dati dello studente con cf BLUSRA02B28H501E
+update Studenti
+SET Nome = 'Mario',
+    Cognome = 'Rossi',
+    Email = 'm.rossi@software.it'
+WHERE CodiceFiscale = 'BLUSRA02B28H501E';
+SELECT * FROM Studenti WHERE CodiceFiscale = 'BLUSRA02B28H501E';

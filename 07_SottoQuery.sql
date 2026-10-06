@@ -228,3 +228,4 @@ WHERE s.DataNascita IS NULL
 					 FROM Iscrizioni AS i
 					 )
 ORDER BY [Studente Iscritto] ASC;
+--*****************************************fine esercizi***********************************
