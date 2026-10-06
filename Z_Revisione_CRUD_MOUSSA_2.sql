@@ -1,3 +1,4 @@
+-- C= CREATE R = READ U=UPDATE D=DELETE
 USE master;
 GO
 
@@ -213,3 +214,57 @@ SET Attendance_Status = 'Absent'
 WHERE AttendanceId = 2;
 
 SELECT * FROM Attendance WHERE AttendanceId = 2;
+
+-------------------------------------------------------
+--LEGGERE DIPENDENTI ATTIVI
+SELECT * FROM Employees;
+
+SELECT 
+     Employee_Name,
+     Job_Title,
+     CONCAT(FORMAT(CAST(Salary AS INT),'N','it-IT'),' €') AS [SALARIO]
+    FROM Employees
+    WHERE Employment_status='Active';
+
+------------------
+--AGGIORNO LO STIPENDIO DI UN DIPENDENTE
+UPDATE Employees
+SET Salary = 123456000
+WHERE EmployeeId = 4;
+
+SELECT * FROM Employees
+WHERE EmployeeId = 4;
+
+---------eliminare un record
+--DELETE PERMETTE DI ELIMINARE UNO O PIù RECORD DI UNA TABELLA
+/*
+
+DELETE FROM [dbo].[Employees]
+      WHERE <Condizioni di ricerca,,>
+GO
+
+
+*/
+-------------------
+SELECT * FROM Employees
+----inserisco nuovo dato
+
+--C=CREATE
+INSERT INTO Employees 
+    (EmployeeId,Employee_Name,DepartmentId,Job_Title,Hire_date,Employment_status)
+VALUES (6,' Minei Rita',4,'Software Data Analyst','2026-10-06','Resigned')
+
+--R=READ
+--MODIFICO VALORE STIPENDO E STATO
+--U=UPDATE
+UPDATE Employees
+    SET Salary = 45000,
+        Employment_status='Active'
+    WHERE EmployeeId=6;
+--D=DELETE
+
+--ELIMINO UN RECORD
+DELETE FROM Employees
+      WHERE EmployeeId=6;
+
+SELECT * FROM Employees
